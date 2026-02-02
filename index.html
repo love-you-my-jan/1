@@ -3,425 +3,838 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ফারিয়া & রাফসান - ভালোবাসার গল্প</title>
-    <!-- Google Fonts for Cute Bangla Typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400;600;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>রাজা ❤️ ফারিয়া - একটি অনন্ত প্রেমকাব্য</title>
     
+    <!-- External Libraries & Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Galada&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+
     <style>
+        /* -----------------------------------------------------------
+           1. CORE SETTINGS & VARIABLES (Advanced Theming)
+        ----------------------------------------------------------- */
         :root {
-            --primary: #ff4d6d;
-            --secondary: #ff8fa3;
-            --bg-color: #fff0f3;
-            --glass: rgba(255, 255, 255, 0.25);
+            /* Colors */
+            --primary: #ff0a54;       /* Hot Pink */
+            --primary-dark: #c90035;
+            --secondary: #ff477e;
+            --accent: #ffcc00;        /* Gold */
+            --bg-dark: #0f172a;       /* Deep Navy */
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1a1a2e 50%, #2e0018 100%);
+            
+            /* Glassmorphism Variables */
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-hover: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            
+            /* Fonts */
+            --font-head: 'Galada', cursive;
+            --font-body: 'Hind Siliguri', sans-serif;
+            --font-eng: 'Great Vibes', cursive;
+
+            /* Spacing */
+            --container-width: 1200px;
         }
 
+        /* Reset & Base */
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            margin: 0; padding: 0; box-sizing: border-box;
+            scrollbar-width: thin; scrollbar-color: var(--primary) var(--bg-dark);
         }
+
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Baloo Da 2', cursive;
-            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            min-height: 100vh;
+            font-family: var(--font-body);
+            background: var(--bg-dark);
+            color: #ffffff;
             overflow-x: hidden;
-            color: #590d22;
-            text-align: center;
-            position: relative;
+            min-height: 100vh;
+            line-height: 1.6;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #0b0f19; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(var(--primary), var(--accent)); border-radius: 5px; }
+
+        /* -----------------------------------------------------------
+           2. ANIMATED BACKGROUNDS (Aurora, Particles, Floating)
+        ----------------------------------------------------------- */
+        
+        /* Particle Wrapper */
+        #particles-js { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+        
+        /* Aurora Borealis Effect */
+        .aurora-bg {
+            position: fixed; inset: 0; z-index: -1;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(255, 10, 84, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 204, 0, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(131, 56, 236, 0.15) 0%, transparent 60%);
+            filter: blur(60px);
+            animation: auroraShift 15s infinite alternate;
         }
 
-        /* Music Control */
-        .music-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: #fff;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            cursor: pointer;
-            color: var(--primary);
-            font-size: 20px;
-            transition: transform 0.3s;
-        }
-        .music-btn:hover { transform: scale(1.1); }
-
-        /* Container */
-        .container {
-            padding: 2rem;
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 10;
+        @keyframes auroraShift {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.1); opacity: 1; }
         }
 
-        /* Header Section */
-        header {
-            margin-top: 50px;
-            animation: fadeInDown 1.5s ease;
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            color: #c9184a;
-            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            font-size: 1.5rem;
-            color: #800f2f;
-            font-weight: 600;
-        }
-
-        /* Image Frame */
-        .photo-frame {
-            width: 250px;
-            height: 250px;
-            margin: 30px auto;
-            border-radius: 50%;
-            border: 8px solid white;
-            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.4);
-            overflow: hidden;
-            animation: pulse 2s infinite;
-            background-image: url('https://placehold.co/400x400/pink/white?text=Faria'); /* ছবি এখানে চেঞ্জ করবেন */
-            background-size: cover;
-            background-position: center;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 109, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(255, 77, 109, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 109, 0); }
-        }
-
-        /* Glassmorphism Card for Quotes */
-        .love-card {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 20px;
-            padding: 30px;
-            margin: 40px auto;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
-            animation: fadeInUp 2s ease;
-        }
-
-        .love-quote {
-            font-size: 1.4rem;
-            line-height: 1.8;
-            min-height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #590d22;
-        }
-
-        /* Proposal Section */
-        .proposal-box {
-            margin-top: 50px;
-        }
-
-        .question {
-            font-size: 2rem;
-            margin-bottom: 30px;
-            color: #d90429;
-            font-weight: 800;
-        }
-
-        .btn-group {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            position: relative;
-            height: 80px; /* Space for moving button */
-        }
-
-        .btn {
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-family: 'Baloo Da 2', cursive;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .btn-yes {
-            background: #ff4d6d;
-            color: white;
-            font-weight: bold;
-        }
-        .btn-yes:hover {
-            background: #d90429;
-            transform: scale(1.1);
-        }
-
-        .btn-no {
-            background: #fff;
-            color: #590d22;
-            position: absolute; /* Allows movement */
-        }
-
-        /* Floating Hearts Animation */
-        .heart-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        .heart {
-            position: absolute;
-            bottom: -100px;
-            color: rgba(255, 255, 255, 0.6);
+        /* Floating Hearts BG */
+        .floating-container { position: fixed; width: 100%; height: 100%; top: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+        
+        .floater {
+            position: absolute; bottom: -50px;
+            font-size: 20px; opacity: 0.6;
             animation: floatUp linear infinite;
         }
 
         @keyframes floatUp {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.8; }
+            100% { transform: translateY(-120vh) rotate(720deg); opacity: 0; }
         }
 
-        footer {
-            margin-top: 50px;
-            padding-bottom: 20px;
-            font-size: 1rem;
-            color: #800f2f;
+        /* -----------------------------------------------------------
+           3. UI COMPONENTS (Loader, Music, Buttons)
+        ----------------------------------------------------------- */
+        
+        /* Preloader */
+        #loader {
+            position: fixed; inset: 0; background: #000; z-index: 99999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 1s ease-out;
+        }
+        
+        .heart-beat-loader {
+            font-size: 80px; color: var(--primary);
+            filter: drop-shadow(0 0 20px var(--primary));
+            animation: heartPulse 1s infinite;
+        }
+        
+        @keyframes heartPulse {
+            0% { transform: scale(1); } 50% { transform: scale(1.3); } 100% { transform: scale(1); }
         }
 
-        /* Hidden message after Yes */
-        .success-message {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.9);
-            z-index: 2000;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+        /* Glass Box Standard */
+        .glass-panel {
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
+            padding: 30px;
+            margin: 20px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Music Player */
+        .music-player {
+            position: fixed; bottom: 30px; left: 30px; z-index: 5000;
+            display: flex; align-items: center; gap: 15px;
+            background: rgba(0,0,0,0.8); border: 1px solid var(--primary);
+            padding: 10px 20px; border-radius: 50px;
+            box-shadow: 0 0 15px rgba(255, 10, 84, 0.4);
+        }
+        
+        .play-btn {
+            background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;
+        }
+        
+        .equalizer {
+            display: flex; gap: 4px; height: 20px; align-items: flex-end;
+        }
+        .bar {
+            width: 4px; background: var(--primary); border-radius: 2px;
+            animation: equalize 1s infinite alternate;
+        }
+        .bar:nth-child(1) { animation-delay: 0.1s; height: 10px; }
+        .bar:nth-child(2) { animation-delay: 0.3s; height: 18px; }
+        .bar:nth-child(3) { animation-delay: 0.5s; height: 8px; }
+        .bar:nth-child(4) { animation-delay: 0.2s; height: 15px; }
+
+        @keyframes equalize { 0% { height: 5px; } 100% { height: 20px; } }
+
+        /* -----------------------------------------------------------
+           4. MAIN STRUCTURE & HERO SECTION
+        ----------------------------------------------------------- */
+        
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 90vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
             text-align: center;
-        }
-        .success-message h2 {
-            font-size: 3rem;
-            color: #d90429;
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
         }
 
-        @keyframes popIn {
-            from { transform: scale(0); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+        .couple-profile-wrapper {
+            position: relative; margin-bottom: 30px;
         }
 
-        /* Keyframe utilities */
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .main-img {
+            width: 250px; height: 250px;
+            border-radius: 50%;
+            border: 6px solid rgba(255,255,255,0.8);
+            box-shadow: 0 0 50px rgba(255, 10, 84, 0.6);
+            object-fit: cover;
+            animation: borderGlow 3s infinite;
+        }
+
+        .crown-icon {
+            position: absolute; top: -40px; left: 50%; transform: translateX(-50%) rotate(-10deg);
+            font-size: 60px; color: var(--accent);
+            filter: drop-shadow(0 0 10px gold);
+            animation: floatCrown 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes borderGlow {
+            0% { box-shadow: 0 0 30px rgba(255,10,84,0.4); border-color: white; }
+            50% { box-shadow: 0 0 60px rgba(255,10,84,0.8); border-color: var(--primary); }
+            100% { box-shadow: 0 0 30px rgba(255,10,84,0.4); border-color: white; }
+        }
+        
+        @keyframes floatCrown { from{top:-40px;} to{top:-50px;} }
+
+        h1 {
+            font-family: var(--font-head);
+            font-size: 5rem;
+            margin: 10px 0;
+            background: linear-gradient(to right, #fff, #ffccd5, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            line-height: 1.1;
+        }
+
+        .names-row {
+            display: flex; justify-content: center; align-items: center; gap: 20px;
+            font-size: 2.5rem; font-family: var(--font-body); font-weight: 700; color: #ffdde7;
+        }
+
+        .divider-heart { color: var(--primary); animation: beat 0.8s infinite; }
+        @keyframes beat { 0%,100% {transform:scale(1);} 50% {transform:scale(1.2);} }
+
+        /* Typewriter Styling */
+        .typewriter-box {
+            min-height: 60px;
+            margin-top: 20px;
+            font-size: 1.5rem;
+            color: var(--accent);
+            font-family: monospace;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+        }
+
+        /* Love Meter */
+        .love-meter {
+            margin-top: 50px;
+            background: rgba(255,255,255,0.05);
+            padding: 20px; border-radius: 20px; width: 80%;
+        }
+        .meter-label { display: block; margin-bottom: 10px; font-size: 1.2rem; }
+        .meter-track { height: 10px; background: rgba(255,255,255,0.2); border-radius: 10px; overflow: hidden; position: relative; }
+        .meter-fill {
+            height: 100%; width: 0%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        .meter-fill::after {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+            animation: shine 1s infinite;
+        }
+        @keyframes shine { from{transform: translateX(-100%);} to{transform:translateX(100%);} }
+        .percentage-txt { font-size: 3rem; font-family: var(--font-head); color: var(--primary); display: block; margin-top: 10px; }
+
+        /* -----------------------------------------------------------
+           5. CONTENT SECTIONS (Timeline, Gallery, List)
+        ----------------------------------------------------------- */
+        
+        .section-title {
+            text-align: center;
+            font-size: 3.5rem;
+            font-family: var(--font-head);
+            margin-bottom: 50px;
+            color: white;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '❤️';
+            position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            font-size: 1.5rem;
+        }
+        
+        .section-title::before {
+            content: '';
+            position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%);
+            width: 200px; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        }
+
+        /* 3D Glass Gallery */
+        .gallery-wrapper {
+            perspective: 1000px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .gallery-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            height: 350px;
+            cursor: pointer;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            transition: transform 0.1s;
+        }
+
+        .gallery-card img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .gallery-card::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);
+            opacity: 0; transition: 0.3s; z-index: 1;
+        }
+
+        .gallery-info {
+            position: absolute; bottom: -50px; left: 0; width: 100%;
+            text-align: center; z-index: 2; transition: 0.4s;
+            color: white; font-weight: bold; padding: 10px;
+        }
+
+        .gallery-card:hover::before { opacity: 1; }
+        .gallery-card:hover .gallery-info { bottom: 20px; }
+        .gallery-card:hover img { transform: scale(1.1); }
+
+        /* Reasons to Love (Scrollable Area) */
+        .reasons-container {
+            height: 400px;
+            overflow-y: scroll;
+            background: rgba(0,0,0,0.2);
+            border-radius: 20px;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .reason-item {
+            background: var(--glass-hover);
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+            transition: 0.3s;
+            display: flex; align-items: center; gap: 15px;
+        }
+        
+        .reason-item:hover { transform: translateX(10px); background: rgba(255, 10, 84, 0.2); }
+        .reason-index {
+            background: var(--primary); width: 30px; height: 30px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center; font-weight: bold;
+        }
+
+        /* -----------------------------------------------------------
+           6. PROPOSAL & INTERACTION (Dodge, Modal)
+        ----------------------------------------------------------- */
+        
+        .proposal-zone {
+            padding: 80px 20px;
+            text-align: center;
+            background: radial-gradient(circle, rgba(255,10,84,0.1) 0%, transparent 70%);
+            border-radius: 30px;
+            border: 2px solid var(--glass-border);
+            margin: 50px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Ring Animation */
+        .ring-wrapper {
+            width: 150px; height: 150px; margin: 0 auto 30px;
+            position: relative; animation: floatRing 3s ease-in-out infinite;
+        }
+        .ring-diamond { font-size: 6rem; filter: drop-shadow(0 0 20px cyan); }
+        @keyframes floatRing { 0%,100%{transform: translateY(0);} 50%{transform: translateY(-20px);} }
+
+        .btn-group {
+            display: flex; justify-content: center; gap: 30px; margin-top: 40px; position: relative; height: 80px;
+        }
+
+        .btn {
+            padding: 15px 50px; font-size: 1.5rem;
+            border-radius: 50px; border: none; font-weight: 700; font-family: var(--font-body);
+            cursor: pointer; transition: 0.4s; z-index: 100;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #00b09b, #96c93d);
+            color: white; box-shadow: 0 5px 20px rgba(0, 255, 0, 0.4);
+        }
+        .btn-yes:hover { transform: scale(1.1); box-shadow: 0 10px 40px rgba(0, 255, 0, 0.6); }
+
+        .btn-no {
+            background: white; color: #ff0a54; border: 2px solid #ff0a54;
+            transition: all 0.2s;
+        }
+
+        /* Modals */
+        .modal {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 9999;
+            display: none; align-items: center; justify-content: center; flex-direction: column;
+        }
+        
+        /* Lightbox Image */
+        .lightbox-img {
+            max-width: 90%; max-height: 80vh; border: 5px solid white;
+            box-shadow: 0 0 50px var(--primary); animation: zoomIn 0.5s;
+        }
+        
+        .lightbox-caption {
+            margin-top: 20px; font-size: 2rem; color: var(--accent);
+            font-family: var(--font-head);
+        }
+        
+        .close-btn {
+            position: absolute; top: 30px; right: 40px; color: white;
+            font-size: 50px; cursor: pointer; transition: 0.3s;
+        }
+        .close-btn:hover { color: var(--primary); transform: rotate(90deg); }
+
+        @keyframes zoomIn { from{transform: scale(0);} to{transform: scale(1);} }
+
+        /* Success Modal Styles */
+        .success-card {
+            background: #fff; color: #333; padding: 40px; border-radius: 20px;
+            text-align: center; max-width: 500px;
+            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* -----------------------------------------------------------
+           7. RESPONSIVENESS
+        ----------------------------------------------------------- */
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            .gallery-wrapper { grid-template-columns: 1fr; }
+            .names-row { font-size: 1.8rem; flex-direction: column; gap: 5px; }
+            .btn { font-size: 1.1rem; padding: 12px 30px; }
+            .glass-panel { padding: 15px; }
+            .music-player { left: 50%; transform: translateX(-50%); bottom: 10px; width: 90%; justify-content: center; }
+        }
 
     </style>
 </head>
 <body>
 
-    <!-- Audio Element (Add your song file here) -->
+    <!-- 1. Backgrounds & Audio -->
+    <div id="particles-js"></div>
+    <div class="aurora-bg"></div>
+    <div class="floating-container" id="floaterContainer"></div>
+    
     <audio id="bgMusic" loop>
-        <source src="romantic_music.mp3" type="audio/mpeg">
-        আপনার ব্রাউজার অডিও সাপোর্ট করছে না।
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="music-btn" onclick="toggleMusic()">
-        <i class="fas fa-music"></i>
+    <!-- 2. Loader -->
+    <div id="loader">
+        <div class="heart-beat-loader">❤️</div>
+        <h2 style="color:white; font-family:'Galada'; margin-top:20px;">ভালোবাসার গল্প লোড হচ্ছে...</h2>
     </div>
 
-    <!-- Background Animation Layer -->
-    <div class="heart-bg" id="heartContainer"></div>
+    <!-- 3. Music Player -->
+    <div class="music-player">
+        <button class="play-btn" id="playToggle" onclick="toggleAudio()">
+            <i class="fas fa-play"></i>
+        </button>
+        <span style="color:white; font-size:0.9rem;">Love Theme</span>
+        <div class="equalizer">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </div>
 
+    <!-- 4. Main Content -->
     <div class="container">
-        <header>
-            <div class="photo-frame">
-                <!-- ইমেজ লিংক এখানে পরিবর্তন করুন -->
-                <!-- উদাহরণ: <img src="faria.jpg" style="width:100%; height:100%; object-fit:cover;"> -->
+        
+        <!-- Hero Section -->
+        <section class="hero glass-panel" data-tilt>
+            <div class="couple-profile-wrapper">
+                <i class="fas fa-crown crown-icon"></i>
+                <img src="https://i.postimg.cc/rmWbRyTh/2bce2514d0d66a4b3fa66d6ad1b811de.jpg" alt="Profile" class="main-img">
             </div>
-            <h1>প্রিয় ফারিয়া <i class="fas fa-heart" style="color:red; font-size: 2rem;"></i></h1>
-            <p class="subtitle">তোমাকে কিছু কথা বলার ছিল...</p>
-        </header>
+            
+            <div class="names-row">
+                <span>রাজা</span>
+                <span class="divider-heart">❤️</span>
+                <span>ফারিয়া</span>
+            </div>
 
-        <!-- Quotes Section -->
-        <div class="love-card">
-            <i class="fas fa-quote-left" style="color: var(--primary); font-size: 1.5rem; margin-bottom: 10px;"></i>
-            <div class="love-quote" id="quoteDisplay">
-                আমার সবটুকু ভালোবাসা শুধু তোমার জন্য...
+            <h1 class="font-effect">ভালোবাসার রাজকাহন</h1>
+            
+            <div class="typewriter-box">
+                <span id="typewriter"></span><span style="animation:blink 1s infinite">|</span>
             </div>
-            <i class="fas fa-quote-right" style="color: var(--primary); font-size: 1.5rem; margin-top: 10px;"></i>
+        </section>
+
+        <!-- Love Meter Section -->
+        <section class="glass-panel" style="text-align: center;">
+            <h2 style="font-family: var(--font-head); font-size: 2.5rem; color: var(--secondary);">আমাদের ভালোবাসার গভীরতা</h2>
+            <div class="love-meter" style="margin: 0 auto;">
+                <span class="meter-label">Calculating Compatibility...</span>
+                <div class="meter-track">
+                    <div class="meter-fill" id="loveFill"></div>
+                </div>
+                <span class="percentage-txt" id="percentText">0%</span>
+            </div>
+            <p style="margin-top: 20px; color: #ddd;">"পরিসংখ্যান দিয়ে ভালোবাসা মাপা যায় না, তবুও আমাদের স্কোর সবসময় ইনফিনিটি।"</p>
+        </section>
+
+        <!-- Gallery Section -->
+        <h2 class="section-title">স্মৃতির অ্যালবাম</h2>
+        <div class="gallery-wrapper">
+            <!-- 1 -->
+            <div class="gallery-card" data-tilt onclick="openLightbox(this)" data-caption="প্রথম দেখায় ভালো লাগা 😍">
+                <img src="https://i.postimg.cc/sxYtqj0w/42f0e0787b9e552cc4ad5ab81ab1163c.jpg">
+                <div class="gallery-info">সূচনা</div>
+            </div>
+            <!-- 2 -->
+            <div class="gallery-card" data-tilt onclick="openLightbox(this)" data-caption="তোমার হাসিতে আমি মুগ্ধ 😊">
+                <img src="https://i.postimg.cc/0jRTVMZv/44f605cfa0f666f58400199f93edbc4e.jpg">
+                <div class="gallery-info">হাসি</div>
+            </div>
+            <!-- 3 -->
+            <div class="gallery-card" data-tilt onclick="openLightbox(this)" data-caption="তুমি আছো তাই আমি আছি 👫">
+                <img src="https://i.postimg.cc/Kjx9KnJz/45bc5f897a9379385e565687970440a2.jpg">
+                <div class="gallery-info">একসাথে</div>
+            </div>
+            <!-- 4 -->
+            <div class="gallery-card" data-tilt onclick="openLightbox(this)" data-caption="আমার সব স্বপ্ন তোমায় নিয়ে ✨">
+                <img src="https://i.postimg.cc/vHLsSzJd/55feb91de20c377e031a3489a256394e.jpg">
+                <div class="gallery-info">স্বপ্ন</div>
+            </div>
+            <!-- 5 -->
+            <div class="gallery-card" data-tilt onclick="openLightbox(this)" data-caption="বৃষ্টির দিনেও শুধু তোমার কথা মনে পড়ে 🌧️">
+                <img src="https://i.postimg.cc/28FDXwsm/687a5b14ffe68dae2fcec8c0d129c1f5.jpg">
+                <div class="gallery-info">স্মৃতি</div>
+            </div>
+             <!-- 6 -->
+             <div class="gallery-card" data-tilt onclick="openLightbox(this)" data-caption="ভালোবাসার রঙে রাঙা 🌈">
+                <img src="https://i.postimg.cc/brgm1sBR/72b16e9e89fe33745074273991683683.jpg">
+                <div class="gallery-info">রঙিন</div>
+            </div>
+             <!-- 7 -->
+             <div class="gallery-card" data-tilt onclick="openLightbox(this)" data-caption="সারাজীবন এভাবেই পাশে থেকো ❤️">
+                <img src="https://i.postimg.cc/1XrjMWfw/7966c2832ea9acbf5397352508ef9e9b.jpg">
+                <div class="gallery-info">অঙ্গীকার</div>
+            </div>
+             <!-- 8 -->
+             <div class="gallery-card" data-tilt onclick="openLightbox(this)" data-caption="তুমি আমার সব কবিতার উৎস ✍️">
+                <img src="https://i.postimg.cc/XYjbM5bh/8d64b56ea14213ab999453c439f0a3ee.jpg">
+                <div class="gallery-info">কাব্য</div>
+            </div>
+        </div>
+
+        <!-- 100 Reasons Section (Scrollable) -->
+        <div class="glass-panel">
+            <h2 class="section-title">ফারিয়া, তোমাকে ভালোবাসার ১০১ কারণ</h2>
+            <div class="reasons-container" id="reasonList">
+                <!-- Javascript will populate this massive list -->
+            </div>
+            <div style="text-align: center; margin-top: 10px; opacity: 0.7;">
+                <i class="fas fa-arrow-down"></i> স্ক্রল করো জানু <i class="fas fa-arrow-down"></i>
+            </div>
+        </div>
+
+        <!-- Timeline Section -->
+        <div class="glass-panel">
+            <h2 class="section-title" style="font-size: 2.5rem;">আমাদের যাত্রাপথ</h2>
+            <div style="border-left: 3px solid var(--primary); margin-left: 20px; padding-left: 20px;">
+                <div style="margin-bottom: 30px; position: relative;">
+                    <i class="fas fa-heart" style="position: absolute; left: -29px; color: var(--accent); background: #000; padding: 5px; border-radius: 50%;"></i>
+                    <h3 style="color: var(--accent);">সূচনা লগ্ন</h3>
+                    <p>যেদিন প্রথম তোমায় দেখেছিলাম, সময় যেন থমকে গিয়েছিল।</p>
+                </div>
+                <div style="margin-bottom: 30px; position: relative;">
+                    <i class="fas fa-comments" style="position: absolute; left: -29px; color: var(--primary); background: #000; padding: 5px; border-radius: 50%;"></i>
+                    <h3 style="color: var(--primary);">প্রথম কথা</h3>
+                    <p>ভয়ে ভয়ে বলা সেই প্রথম হ্যালো, আর হৃদস্পন্দন বেড়ে যাওয়া।</p>
+                </div>
+                <div style="margin-bottom: 30px; position: relative;">
+                    <i class="fas fa-star" style="position: absolute; left: -29px; color: #00ff88; background: #000; padding: 5px; border-radius: 50%;"></i>
+                    <h3 style="color: #00ff88;">ভালোবাসার স্বীকারোক্তি</h3>
+                    <p>অবশেষে মনের কথা বলা, আর এক নতুন অধ্যায়ের শুরু।</p>
+                </div>
+                 <div style="position: relative;">
+                    <i class="fas fa-infinity" style="position: absolute; left: -29px; color: cyan; background: #000; padding: 5px; border-radius: 50%;"></i>
+                    <h3 style="color: cyan;">অনাগত ভবিষ্যৎ</h3>
+                    <p>ইনশাআল্লাহ, সারাজীবন এভাবেই কাটবে।</p>
+                </div>
+            </div>
         </div>
 
         <!-- Proposal Section -->
-        <div class="proposal-box">
-            <p class="question">ফারিয়া, তুমি কি আমার হবে?</p>
-            <div class="btn-group">
-                <button class="btn btn-yes" onclick="acceptProposal()">হ্যাঁ, আমি রাজি! ❤️</button>
-                <button class="btn btn-no" id="noBtn" onmouseover="moveButton()" onclick="moveButton()">না ☹️</button>
+        <div class="proposal-zone glass-panel">
+            <div class="ring-wrapper">
+                <i class="fas fa-gem ring-diamond"></i>
+            </div>
+            <h1 style="font-size: 3rem; margin-bottom: 20px; font-family: var(--font-head); color: white;">
+                ফারিয়া, তুমি কি সারাজীবনের জন্য <br><span style="color: var(--accent);">রাজার</span> হবে? 💍
+            </h1>
+            <p style="font-size: 1.2rem; color: #ccc;">(ভেবে চিন্তে বাটন চাপ দিও!)</p>
+            
+            <div class="btn-group" id="buttonBox">
+                <button class="btn btn-yes" onclick="sheSaidYes()">হ্যাঁ, কবুল! ❤️</button>
+                <button class="btn btn-no" id="noBtn" onmouseover="dodgeMe()">না 🐸</button>
             </div>
         </div>
 
-        <footer>
-            <p>ইতি, তোমার পাগল প্রেমিক<br><strong style="font-size: 1.2rem;">রাফসান</strong></p>
+        <!-- Footer -->
+        <footer style="text-align: center; padding: 40px; color: #666; font-size: 0.9rem;">
+            Created with Extreme Love by Raja | © 2026 Forever <br>
+            <i class="fas fa-code"></i> Developed for Faria
         </footer>
     </div>
 
-    <!-- Success Overlay -->
-    <div class="success-message" id="successMsg">
-        <h2>আলহামদুলিল্লাহ! ❤️</h2>
-        <p style="font-size: 1.5rem; margin-top: 10px;">আমি জানতাম তুমি রাজি হবে ফারিয়া!</p>
-        <p style="font-size: 1.2rem; margin-top: 5px;">I Love You So Much!</p>
-        <div style="font-size: 5rem; margin-top: 20px;">💑💍💐</div>
+    <!-- 5. LIGHTBOX MODAL -->
+    <div class="modal" id="lightboxModal" onclick="closeLightbox(event)">
+        <span class="close-btn" onclick="closeLightbox({target: this})">&times;</span>
+        <img src="" class="lightbox-img" id="lbImg">
+        <div class="lightbox-caption" id="lbCap"></div>
     </div>
 
-    <!-- Confetti JS for Celebration -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <!-- 6. SUCCESS MODAL -->
+    <div class="modal" id="successModal" style="background: rgba(255,10,84,0.9);">
+        <div class="success-card">
+            <i class="fas fa-check-circle" style="font-size: 80px; color: #2ecc71; margin-bottom: 20px;"></i>
+            <h1 style="color: #d32f2f; font-family: var(--font-head);">আলহামদুলিল্লাহ! 🎉</h1>
+            <p style="font-size: 1.2rem; color: #333; margin: 15px 0;">
+                আমি জানতাম তুমি 'হ্যাঁ' বলবে!<br>
+                আজ থেকে অফিশিয়ালি আমরা <b>কাপল</b>! 👩‍❤️‍👨
+            </p>
+            <div style="font-size: 40px; margin: 20px;">💑💍🏡</div>
+            <button class="btn btn-yes" onclick="location.reload()">আবার প্রথম থেকে দেখি</button>
+        </div>
+    </div>
 
     <script>
-        // 20+ Premium Cute Captions
-        const quotes = [
-            "ফারিয়া, তুমি আমার দেখা সবচেয়ে সুন্দর স্বপ্ন।",
-            "তোমার হাসিতে আমি আমার পৃথিবী খুঁজে পাই।",
-            "তোমাকে ছাড়া আমার দিনগুলো অসম্পূর্ণ লাগে।",
-            "আমার হৃদয়ের প্রতিটি স্পন্দন শুধু তোমার নাম বলে।",
-            "তুমি আমার জীবনের সেই গল্প, যা আমি সারাজীবন লিখতে চাই।",
-            "তোমার চোখের দিকে তাকালে আমি সবকিছু ভুলে যাই।",
-            "আল্লাহর কাছে আমার সেরা উপহার তুমি।",
-            "রাফসান এর পৃথিবী শুধু ফারিয়াকে ঘিরে।",
-            "তুমি পাশে থাকলে সব কঠিন পথ সহজ মনে হয়।",
-            "আমার কল্পনার রাজ্যে তুমিই একমাত্র রানী।",
-            "ভালোবাসা মানে শুধু তুমি।",
-            "তোমার রাগটাও আমার কাছে ভীষণ মিষ্টি লাগে।",
-            "আমি তোমাকে আমার বর্তমান এবং ভবিষ্যৎ হিসেবে চাই।",
-            "সারাজীবন তোমার হাত ধরে হাঁটতে চাই।",
-            "তুমি কি জানো? তুমি আমার কতটা প্রিয়?",
-            "তোমার জন্য আমি এক পৃথিবী ভালোবাসা জমিয়ে রেখেছি।",
-            "প্রতিটি মোনাজাতে আমি শুধু তোমাকেই চাই।",
-            "তুমি আমার জীবনের আলো।",
-            "চলো না, বাকি জীবনটা একসাথে কাটাই?",
-            "আমার শেষ নিঃশ্বাস পর্যন্ত তোমাকে ভালোবাসবো।",
-            "তোমার এক পলক দেখার জন্য আমি সারাদিন অপেক্ষা করি।"
-        ];
-
-        // Quotes Animation Logic
-        let quoteIndex = 0;
-        const quoteDisplay = document.getElementById('quoteDisplay');
-
-        function changeQuote() {
-            quoteDisplay.style.opacity = 0;
+        /* -----------------------------------------------------------
+           1. LOADER & INITIALIZATION
+        ----------------------------------------------------------- */
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            // Hide Loader
             setTimeout(() => {
-                quoteDisplay.innerText = quotes[quoteIndex];
-                quoteIndex = (quoteIndex + 1) % quotes.length;
-                quoteDisplay.style.opacity = 1;
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    initTypewriter();
+                    fillReasons(); // Generate list
+                    startLoveMeter(); // Animate meter
+                }, 1000);
+            }, 2500);
+
+            // Init Particle Background
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: ["#ff0a54", "#ffffff", "#ffcc00"] },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.5, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: { enable: true, distance: 150, color: "#ffffff", opacity: 0.2, width: 1 },
+                    move: { enable: true, speed: 2, direction: "none", random: true, out_mode: "out" }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" } }
+                }
+            });
+
+            // Init Floaters
+            setInterval(createFloater, 300);
+        });
+
+        /* -----------------------------------------------------------
+           2. VISUAL EFFECTS (Floater, Confetti)
+        ----------------------------------------------------------- */
+        function createFloater() {
+            const container = document.getElementById('floaterContainer');
+            const el = document.createElement('div');
+            el.classList.add('floater');
+            el.innerText = ['❤️', '💖', '✨', '🌹', '🦋'][Math.floor(Math.random() * 5)];
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.fontSize = Math.random() * 20 + 10 + 'px';
+            el.style.animationDuration = Math.random() * 3 + 4 + 's';
+            container.appendChild(el);
+            setTimeout(() => el.remove(), 7000);
+        }
+
+        /* -----------------------------------------------------------
+           3. TYPEWRITER & LIST GENERATION
+        ----------------------------------------------------------- */
+        const typeText = "তোমাকে ছাড়া, এক মুহূর্তও ভাবতে পারি না...";
+        let typeIdx = 0;
+        function initTypewriter() {
+            const el = document.getElementById('typewriter');
+            if (typeIdx < typeText.length) {
+                el.innerHTML += typeText.charAt(typeIdx);
+                typeIdx++;
+                setTimeout(initTypewriter, 100);
+            }
+        }
+
+        function fillReasons() {
+            const reasons = [
+                "১. তোমার হাসি আমার পৃথিবী।", "২. তুমি আমাকে বুঝো।", "৩. তোমার চোখের গভীরতা।",
+                "৪. তোমার সরলতা।", "৫. তোমার মিষ্টি কন্ঠস্বর।", "৬. আমাদের খুনসুটি।",
+                "৭. তোমার রাগের ভান।", "৮. আমার যত্ন নেওয়া।", "৯. আল্লাহ্-এর শ্রেষ্ঠ উপহার তুমি।",
+                "১০. তোমার লম্বা চুল।", "১১. তোমার শিশুসুলভ আচরণ।", "১২. বিপদে সাহস দেওয়া।",
+                "১৩. স্বপ্ন দেখানো।", "১৪. একসাথে চা খাওয়া।", "১৫. আমার পাগলামি সহ্য করা।",
+                "১৬. তোমার হাতে রান্না।", "১৭. আমাকে পরিবর্তন করা।", "১৮. বিশ্বাস করা।",
+                "১৯. আমার নাম ধরে ডাকা।", "২০. অপেক্ষায় থাকা।", "২১. তোমার বুদ্ধিমত্তা।",
+                "২২. তোমার শাড়ি পরার স্টাইল।", "২৩. আমার জন্য সাজা।", "২৪. ভুল শুধরে দেওয়া।",
+                "২৫. তোমার অভিমান।", "২৬. আমার চোখে তুমি সেরা।", "২৭. ভালোবাসার গভীরতা।",
+                "২৮. একসাথে হাত ধরা।", "২৯. মোনাজাতে চাওয়া।", "৩০. শুধুমাত্র তুমি।",
+                "৩১. আমাদের ভবিষ্যতের স্বপ্ন।", "৩২. তোমার আত্মবিশ্বাস।", "৩৩. পরিবারের সম্মান করা।",
+                "৩৪. সততা।", "৩৫. চোখের ভাষা বুঝা।", "৩৬. সারপ্রাইজ দেওয়া।",
+                "৩৭. আমার দোষ ঢাকা।", "৩৮. বন্ধু হওয়া।", "৩৯. প্রেমিকা হওয়া।", "৪০. স্ত্রী হওয়ার স্বপ্ন।"
+            ];
+            // Extend to look big
+            for(let k=41; k<=100; k++) reasons.push(k + ". কারণ বলে শেষ করা যাবে না...");
+            
+            const list = document.getElementById('reasonList');
+            reasons.forEach(r => {
+                const div = document.createElement('div');
+                div.className = 'reason-item';
+                div.innerHTML = `<div class="reason-index"><i class="fas fa-heart" style="font-size:12px;color:white;"></i></div> <div>${r}</div>`;
+                list.appendChild(div);
+            });
+        }
+
+        /* -----------------------------------------------------------
+           4. AUDIO & METER LOGIC
+        ----------------------------------------------------------- */
+        const audio = document.getElementById('bgMusic');
+        let isPlaying = false;
+        
+        function toggleAudio() {
+            const btn = document.getElementById('playToggle');
+            const icon = btn.querySelector('i');
+            
+            if (isPlaying) {
+                audio.pause();
+                icon.className = 'fas fa-play';
+            } else {
+                audio.play().catch(e => console.log("User must interact first"));
+                icon.className = 'fas fa-pause';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        function startLoveMeter() {
+            setTimeout(() => {
+                document.getElementById('loveFill').style.width = '100%';
+                let count = 0;
+                const counter = setInterval(() => {
+                    count++;
+                    document.getElementById('percentText').innerText = count + '%';
+                    if(count === 100) {
+                        clearInterval(counter);
+                        document.getElementById('percentText').innerText = 'Infinite ∞';
+                        confetti({ origin: { y: 0.6 } });
+                    }
+                }, 30);
+            }, 1000);
+        }
+
+        /* -----------------------------------------------------------
+           5. INTERACTION (Lightbox, Dodge, Yes)
+        ----------------------------------------------------------- */
+        // Lightbox
+        function openLightbox(element) {
+            const modal = document.getElementById('lightboxModal');
+            const img = document.getElementById('lbImg');
+            const cap = document.getElementById('lbCap');
+            
+            modal.style.display = "flex";
+            img.src = element.querySelector('img').src;
+            cap.innerText = element.getAttribute('data-caption');
+        }
+
+        function closeLightbox(e) {
+            const modal = document.getElementById('lightboxModal');
+            if(e.target === modal || e.target.classList.contains('close-btn')) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Dodging 'No' Button
+        const noBtn = document.getElementById('noBtn');
+        let dodgeCount = 0;
+        function dodgeMe() {
+            dodgeCount++;
+            if(dodgeCount === 1) noBtn.innerText = "না? 😢";
+            if(dodgeCount === 2) noBtn.innerText = "আরেকবার ভাবো!";
+            if(dodgeCount === 3) {
+                noBtn.style.position = 'fixed'; // 脱离文档流
+            }
+            if(dodgeCount >= 3) {
+                const x = Math.random() * (window.innerWidth - 150);
+                const y = Math.random() * (window.innerHeight - 150);
+                noBtn.style.left = x + 'px';
+                noBtn.style.top = y + 'px';
+                noBtn.innerText = "ধরো দেখি! 😜";
+                noBtn.style.background = "#333";
+            }
+        }
+
+        // Acceptance
+        function sheSaidYes() {
+            audio.play();
+            const end = Date.now() + 5000;
+            // Fireworks Loop
+            (function frame() {
+                confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors:['#ff0a54', '#gold'] });
+                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors:['#ff0a54', '#gold'] });
+                if (Date.now() < end) requestAnimationFrame(frame);
+            }());
+
+            setTimeout(() => {
+                document.getElementById('successModal').style.display = 'flex';
             }, 500);
         }
-        setInterval(changeQuote, 4000); // Change quote every 4 seconds
 
-        // Music Logic
-        const music = document.getElementById('bgMusic');
-        let isPlaying = false;
-        function toggleMusic() {
-            if (isPlaying) {
-                music.pause();
-                isPlaying = false;
-            } else {
-                music.play();
-                isPlaying = true;
-            }
-        }
-        // Try to auto play on click anywhere first time
-        document.body.addEventListener('click', function() {
-            if (!isPlaying) {
-                music.play();
-                isPlaying = true;
-            }
-        }, { once: true });
-
-
-        // Background Floating Hearts
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.innerHTML = '<i class="fas fa-heart"></i>';
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.animationDuration = Math.random() * 3 + 2 + "s";
-            heart.style.fontSize = Math.random() * 20 + 10 + "px";
-            heart.style.color = Math.random() > 0.5 ? '#ff4d6d' : '#fff';
-            
-            document.getElementById('heartContainer').appendChild(heart);
-
-            setTimeout(() => {
-                heart.remove();
-            }, 5000);
-        }
-        setInterval(createHeart, 300);
-
-        // Naughty "No" Button Logic
-        const noBtn = document.getElementById('noBtn');
-        function moveButton() {
-            const x = Math.random() * (window.innerWidth - 100);
-            const y = Math.random() * (window.innerHeight - 100);
-            noBtn.style.position = 'fixed';
-            noBtn.style.left = x + 'px';
-            noBtn.style.top = y + 'px';
-        }
-
-        // Proposal Acceptance
-        function acceptProposal() {
-            // Play celebration sound if you have one, or just music louder
-            music.volume = 1.0;
-            
-            // Show Success Screen
-            const successMsg = document.getElementById('successMsg');
-            successMsg.style.display = 'flex';
-
-            // Confetti Explosion
-            const duration = 5 * 1000;
-            const animationEnd = Date.now() + duration;
-            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 3000 };
-
-            function randomInRange(min, max) {
-              return Math.random() * (max - min) + min;
-            }
-
-            const interval = setInterval(function() {
-              const timeLeft = animationEnd - Date.now();
-
-              if (timeLeft <= 0) {
-                return clearInterval(interval);
-              }
-
-              const particleCount = 50 * (timeLeft / duration);
-              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
-            }, 250);
-        }
+        // Init Vanilla Tilt
+        VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+            max: 15, speed: 400, glare: true, "max-glare": 0.5,
+        });
     </script>
 </body>
 </html>

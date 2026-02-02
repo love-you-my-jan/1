@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ফারিয়া & রাফসান - ভালোবাসার গল্প</title>
+    <!-- Google Fonts for Cute Bangla Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400;600;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #ff4d6d;
+            --secondary: #ff8fa3;
+            --bg-color: #fff0f3;
+            --glass: rgba(255, 255, 255, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Baloo Da 2', cursive;
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: #590d22;
+            text-align: center;
+            position: relative;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Music Control */
+        .music-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: #fff;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            color: var(--primary);
+            font-size: 20px;
+            transition: transform 0.3s;
+        }
+        .music-btn:hover { transform: scale(1.1); }
+
+        /* Container */
+        .container {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Header Section */
+        header {
+            margin-top: 50px;
+            animation: fadeInDown 1.5s ease;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: #c9184a;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #800f2f;
+            font-weight: 600;
+        }
+
+        /* Image Frame */
+        .photo-frame {
+            width: 250px;
+            height: 250px;
+            margin: 30px auto;
+            border-radius: 50%;
+            border: 8px solid white;
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.4);
+            overflow: hidden;
+            animation: pulse 2s infinite;
+            background-image: url('https://placehold.co/400x400/pink/white?text=Faria'); /* ছবি এখানে চেঞ্জ করবেন */
+            background-size: cover;
+            background-position: center;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 109, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(255, 77, 109, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 109, 0); }
+        }
+
+        /* Glassmorphism Card for Quotes */
+        .love-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px auto;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+            animation: fadeInUp 2s ease;
+        }
+
+        .love-quote {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #590d22;
+        }
+
+        /* Proposal Section */
+        .proposal-box {
+            margin-top: 50px;
+        }
+
+        .question {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #d90429;
+            font-weight: 800;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            height: 80px; /* Space for moving button */
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Baloo Da 2', cursive;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-yes {
+            background: #ff4d6d;
+            color: white;
+            font-weight: bold;
+        }
+        .btn-yes:hover {
+            background: #d90429;
+            transform: scale(1.1);
+        }
+
+        .btn-no {
+            background: #fff;
+            color: #590d22;
+            position: absolute; /* Allows movement */
+        }
+
+        /* Floating Hearts Animation */
+        .heart-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            bottom: -100px;
+            color: rgba(255, 255, 255, 0.6);
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+        }
+
+        footer {
+            margin-top: 50px;
+            padding-bottom: 20px;
+            font-size: 1rem;
+            color: #800f2f;
+        }
+
+        /* Hidden message after Yes */
+        .success-message {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 2000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .success-message h2 {
+            font-size: 3rem;
+            color: #d90429;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* Keyframe utilities */
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    </style>
+</head>
+<body>
+
+    <!-- Audio Element (Add your song file here) -->
+    <audio id="bgMusic" loop>
+        <source src="romantic_music.mp3" type="audio/mpeg">
+        আপনার ব্রাউজার অডিও সাপোর্ট করছে না।
+    </audio>
+
+    <div class="music-btn" onclick="toggleMusic()">
+        <i class="fas fa-music"></i>
+    </div>
+
+    <!-- Background Animation Layer -->
+    <div class="heart-bg" id="heartContainer"></div>
+
+    <div class="container">
+        <header>
+            <div class="photo-frame">
+                <!-- ইমেজ লিংক এখানে পরিবর্তন করুন -->
+                <!-- উদাহরণ: <img src="faria.jpg" style="width:100%; height:100%; object-fit:cover;"> -->
+            </div>
+            <h1>প্রিয় ফারিয়া <i class="fas fa-heart" style="color:red; font-size: 2rem;"></i></h1>
+            <p class="subtitle">তোমাকে কিছু কথা বলার ছিল...</p>
+        </header>
+
+        <!-- Quotes Section -->
+        <div class="love-card">
+            <i class="fas fa-quote-left" style="color: var(--primary); font-size: 1.5rem; margin-bottom: 10px;"></i>
+            <div class="love-quote" id="quoteDisplay">
+                আমার সবটুকু ভালোবাসা শুধু তোমার জন্য...
+            </div>
+            <i class="fas fa-quote-right" style="color: var(--primary); font-size: 1.5rem; margin-top: 10px;"></i>
+        </div>
+
+        <!-- Proposal Section -->
+        <div class="proposal-box">
+            <p class="question">ফারিয়া, তুমি কি আমার হবে?</p>
+            <div class="btn-group">
+                <button class="btn btn-yes" onclick="acceptProposal()">হ্যাঁ, আমি রাজি! ❤️</button>
+                <button class="btn btn-no" id="noBtn" onmouseover="moveButton()" onclick="moveButton()">না ☹️</button>
+            </div>
+        </div>
+
+        <footer>
+            <p>ইতি, তোমার পাগল প্রেমিক<br><strong style="font-size: 1.2rem;">রাফসান</strong></p>
+        </footer>
+    </div>
+
+    <!-- Success Overlay -->
+    <div class="success-message" id="successMsg">
+        <h2>আলহামদুলিল্লাহ! ❤️</h2>
+        <p style="font-size: 1.5rem; margin-top: 10px;">আমি জানতাম তুমি রাজি হবে ফারিয়া!</p>
+        <p style="font-size: 1.2rem; margin-top: 5px;">I Love You So Much!</p>
+        <div style="font-size: 5rem; margin-top: 20px;">💑💍💐</div>
+    </div>
+
+    <!-- Confetti JS for Celebration -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+    <script>
+        // 20+ Premium Cute Captions
+        const quotes = [
+            "ফারিয়া, তুমি আমার দেখা সবচেয়ে সুন্দর স্বপ্ন।",
+            "তোমার হাসিতে আমি আমার পৃথিবী খুঁজে পাই।",
+            "তোমাকে ছাড়া আমার দিনগুলো অসম্পূর্ণ লাগে।",
+            "আমার হৃদয়ের প্রতিটি স্পন্দন শুধু তোমার নাম বলে।",
+            "তুমি আমার জীবনের সেই গল্প, যা আমি সারাজীবন লিখতে চাই।",
+            "তোমার চোখের দিকে তাকালে আমি সবকিছু ভুলে যাই।",
+            "আল্লাহর কাছে আমার সেরা উপহার তুমি।",
+            "রাফসান এর পৃথিবী শুধু ফারিয়াকে ঘিরে।",
+            "তুমি পাশে থাকলে সব কঠিন পথ সহজ মনে হয়।",
+            "আমার কল্পনার রাজ্যে তুমিই একমাত্র রানী।",
+            "ভালোবাসা মানে শুধু তুমি।",
+            "তোমার রাগটাও আমার কাছে ভীষণ মিষ্টি লাগে।",
+            "আমি তোমাকে আমার বর্তমান এবং ভবিষ্যৎ হিসেবে চাই।",
+            "সারাজীবন তোমার হাত ধরে হাঁটতে চাই।",
+            "তুমি কি জানো? তুমি আমার কতটা প্রিয়?",
+            "তোমার জন্য আমি এক পৃথিবী ভালোবাসা জমিয়ে রেখেছি।",
+            "প্রতিটি মোনাজাতে আমি শুধু তোমাকেই চাই।",
+            "তুমি আমার জীবনের আলো।",
+            "চলো না, বাকি জীবনটা একসাথে কাটাই?",
+            "আমার শেষ নিঃশ্বাস পর্যন্ত তোমাকে ভালোবাসবো।",
+            "তোমার এক পলক দেখার জন্য আমি সারাদিন অপেক্ষা করি।"
+        ];
+
+        // Quotes Animation Logic
+        let quoteIndex = 0;
+        const quoteDisplay = document.getElementById('quoteDisplay');
+
+        function changeQuote() {
+            quoteDisplay.style.opacity = 0;
+            setTimeout(() => {
+                quoteDisplay.innerText = quotes[quoteIndex];
+                quoteIndex = (quoteIndex + 1) % quotes.length;
+                quoteDisplay.style.opacity = 1;
+            }, 500);
+        }
+        setInterval(changeQuote, 4000); // Change quote every 4 seconds
+
+        // Music Logic
+        const music = document.getElementById('bgMusic');
+        let isPlaying = false;
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                isPlaying = false;
+            } else {
+                music.play();
+                isPlaying = true;
+            }
+        }
+        // Try to auto play on click anywhere first time
+        document.body.addEventListener('click', function() {
+            if (!isPlaying) {
+                music.play();
+                isPlaying = true;
+            }
+        }, { once: true });
+
+
+        // Background Floating Hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '<i class="fas fa-heart"></i>';
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+            heart.style.fontSize = Math.random() * 20 + 10 + "px";
+            heart.style.color = Math.random() > 0.5 ? '#ff4d6d' : '#fff';
+            
+            document.getElementById('heartContainer').appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+        setInterval(createHeart, 300);
+
+        // Naughty "No" Button Logic
+        const noBtn = document.getElementById('noBtn');
+        function moveButton() {
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 100);
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
+
+        // Proposal Acceptance
+        function acceptProposal() {
+            // Play celebration sound if you have one, or just music louder
+            music.volume = 1.0;
+            
+            // Show Success Screen
+            const successMsg = document.getElementById('successMsg');
+            successMsg.style.display = 'flex';
+
+            // Confetti Explosion
+            const duration = 5 * 1000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 3000 };
+
+            function randomInRange(min, max) {
+              return Math.random() * (max - min) + min;
+            }
+
+            const interval = setInterval(function() {
+              const timeLeft = animationEnd - Date.now();
+
+              if (timeLeft <= 0) {
+                return clearInterval(interval);
+              }
+
+              const particleCount = 50 * (timeLeft / duration);
+              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+    </script>
+</body>
+</html>

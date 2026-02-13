@@ -7,98 +7,46 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body {
-            background: #ecf0f3;
-            font-family: 'Poppins', sans-serif;
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #ecf0f3;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 10px 10px 20px #cbced1, -10px -10px 20px #ffffff;
-        }
+        body { background: #ecf0f3; font-family: 'Poppins', sans-serif; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: #ecf0f3; padding: 30px; border-radius: 20px; box-shadow: 10px 10px 20px #cbced1, -10px -10px 20px #ffffff; }
         h2 { color: #ff4d6d; text-align: center; margin-bottom: 20px; }
-
         .input-group { margin-bottom: 15px; }
         label { font-weight: 600; color: #555; display: block; margin-bottom: 5px; }
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 10px;
-            background: #ecf0f3;
-            box-shadow: inset 5px 5px 10px #cbced1, inset -5px -5px 10px #ffffff;
-            outline: none;
-        }
-
-        .memories-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .memory-box {
-            background: rgba(255, 77, 109, 0.1);
-            padding: 10px;
-            border-radius: 10px;
-            border: 1px solid #ff4d6d;
-        }
-
-        .btn-save {
-            width: 100%;
-            padding: 15px;
-            margin-top: 20px;
-            border: none;
-            border-radius: 50px;
-            background: #ff4d6d;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 5px 5px 10px #cbced1, -5px -5px 10px #ffffff;
-        }
+        input, textarea { width: 100%; padding: 10px; border: none; border-radius: 10px; background: #ecf0f3; box-shadow: inset 5px 5px 10px #cbced1, inset -5px -5px 10px #ffffff; outline: none; }
+        .memories-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .memory-box { background: rgba(255, 77, 109, 0.1); padding: 10px; border-radius: 10px; border: 1px solid #ff4d6d; }
+        .btn-save { width: 100%; padding: 15px; margin-top: 20px; border: none; border-radius: 50px; background: #ff4d6d; color: white; font-weight: bold; cursor: pointer; box-shadow: 5px 5px 10px #cbced1, -5px -5px 10px #ffffff; }
         .btn-save:hover { background: #d63353; }
-
     </style>
 </head>
 <body>
-
     <div class="container">
         <h2><i class="fas fa-birthday-cake"></i> Love & Cake Setup</h2>
 
-        <!-- Header Info -->
         <div class="input-group">
-            <label>Page Title (Name)</label>
-            <input type="text" id="page-title" placeholder="Ex: Happy Birthday Rafsan">
+            <label>Page Title</label>
+            <input type="text" id="page-title" placeholder="Ex: Happy Birthday">
         </div>
         <div class="input-group">
             <label>Sweet Caption</label>
-            <textarea id="page-caption" rows="2" placeholder="Ex: Blow the candles to make a wish..."></textarea>
+            <textarea id="page-caption" rows="2" placeholder="Ex: Make a wish..."></textarea>
         </div>
 
-        <!-- NEW: Timer Setup -->
+        <!-- Timer Setup -->
         <div class="input-group" style="border: 2px dashed #ff4d6d; padding: 10px; border-radius: 10px;">
-            <label style="color: #ff4d6d;">Auto Extinguish Timer (Seconds)</label>
-            <input type="number" id="auto-timer" placeholder="Ex: 15 (Candles off automatically after 15s)">
-            <small style="color: #777;">Leave empty if you want only Microphone Blow.</small>
+            <label style="color: #ff4d6d;">Auto Blowout Timer (Seconds)</label>
+            <input type="number" id="auto-timer" placeholder="Ex: 5 (Candles blow out automatically after 5s)">
         </div>
 
-        <h3>Set 7 Memories (Logos)</h3>
-        <div class="memories-grid" id="memories-container">
-            <!-- JavaScript will generate 7 inputs here -->
-        </div>
+        <h3>Set 7 Memories</h3>
+        <div class="memories-grid" id="memories-container"></div>
 
         <button class="btn-save" onclick="saveData()">SAVE SETTINGS</button>
         <button class="btn-save" style="background: #555; margin-top: 10px;" onclick="window.location.href='admin.home.html'">Back to Dashboard</button>
     </div>
 
-    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
-
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyCXMFqxIe8IrZkzUx2YVMTvVXQmIAhtruc",
@@ -112,26 +60,17 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // 1. Generate 7 Input Fields
         const container = document.getElementById('memories-container');
         for(let i=1; i<=7; i++) {
-            container.innerHTML += `
-                <div class="memory-box">
-                    <label>Memory ${i}</label>
-                    <input type="text" id="img-${i}" placeholder="Image URL">
-                    <input type="text" id="txt-${i}" placeholder="Name/Date" style="margin-top:5px;">
-                </div>
-            `;
+            container.innerHTML += `<div class="memory-box"><label>Memory ${i}</label><input type="text" id="img-${i}" placeholder="Image URL"><input type="text" id="txt-${i}" placeholder="Name" style="margin-top:5px;"></div>`;
         }
 
-        // 2. Load Existing Data
         db.ref('settings/love_page').once('value', (snapshot) => {
             const data = snapshot.val();
             if(data) {
                 document.getElementById('page-title').value = data.title || "";
                 document.getElementById('page-caption').value = data.caption || "";
-                document.getElementById('auto-timer').value = data.timer || ""; // Load Timer
-                
+                document.getElementById('auto-timer').value = data.timer || ""; 
                 if(data.memories) {
                     data.memories.forEach((mem, index) => {
                         document.getElementById(`img-${index+1}`).value = mem.img || "";
@@ -141,26 +80,15 @@
             }
         });
 
-        // 3. Save Data
         function saveData() {
             const title = document.getElementById('page-title').value;
             const caption = document.getElementById('page-caption').value;
             const timer = document.getElementById('auto-timer').value;
-            
             let memories = [];
             for(let i=1; i<=7; i++) {
-                memories.push({
-                    img: document.getElementById(`img-${i}`).value,
-                    txt: document.getElementById(`txt-${i}`).value
-                });
+                memories.push({ img: document.getElementById(`img-${i}`).value, txt: document.getElementById(`txt-${i}`).value });
             }
-
-            db.ref('settings/love_page').set({
-                title: title,
-                caption: caption,
-                timer: timer, // Save Timer
-                memories: memories
-            }).then(() => alert("Saved Successfully!"));
+            db.ref('settings/love_page').set({ title, caption, timer, memories }).then(() => alert("Saved!"));
         }
     </script>
 </body>

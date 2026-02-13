@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Setup - Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: #ecf0f3;
+            font-family: 'Poppins', sans-serif;
+            padding: 20px;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: #ecf0f3;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 10px 10px 20px #cbced1, -10px -10px 20px #ffffff;
+        }
+        h2 { color: #1da1f2; text-align: center; margin-bottom: 20px; }
+        
+        .section-box {
+            border: 2px dashed #1da1f2;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            background: rgba(29, 161, 242, 0.05);
+        }
+
+        label { font-weight: 600; color: #555; display: block; margin-top: 10px; }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 10px;
+            background: #ecf0f3;
+            box-shadow: inset 5px 5px 10px #cbced1, inset -5px -5px 10px #ffffff;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .btn-add {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 50px;
+            background: #1da1f2;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 5px 5px 10px #cbced1, -5px -5px 10px #ffffff;
+            transition: 0.3s;
+        }
+        .btn-add:hover { background: #0d8bd1; transform: translateY(-2px); }
+
+        .active-list {
+            margin-top: 20px;
+        }
+        .list-item {
+            background: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        .delete-btn { color: red; cursor: pointer; }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2><i class="fas fa-home"></i> Home Page Setup</h2>
+
+        <!-- 1. Main Title Setup -->
+        <div class="section-box">
+            <h3>Top Header Name</h3>
+            <input type="text" id="header-name" placeholder="Ex: Happy Birthday My Love">
+            <button class="btn-add" onclick="saveHeader()">Save Header Name</button>
+        </div>
+
+        <!-- 2. Add Special Time Buttons -->
+        <div class="section-box">
+            <h3>Create Magic Button</h3>
+            
+            <label>Button Name (Title)</label>
+            <input type="text" id="btn-name" placeholder="Ex: Open Me First">
+
+            <label>Image URL</label>
+            <input type="text" id="btn-img" placeholder="https://...">
+
+            <label>Hidden Caption (Shows after click)</label>
+            <textarea id="btn-caption" rows="2" placeholder="Ex: I love you so much..."></textarea>
+
+            <label>Duration (Seconds)</label>
+            <input type="number" id="btn-time" placeholder="Ex: 10 (Disappears after 10s of reading)">
+
+            <button class="btn-add" onclick="addButton()">+ Add Button</button>
+        </div>
+
+        <!-- List of Active Buttons -->
+        <h3>Active Buttons</h3>
+        <div class="active-list" id="button-list">
+            <!-- Items will appear here -->
+        </div>
+
+        <button class="btn-add" style="background: #555; margin-top: 30px;" onclick="window.location.href='admin.home.html'">Back to Dashboard</button>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCXMFqxIe8IrZkzUx2YVMTvVXQmIAhtruc",
+            authDomain: "love-1-6cdb1.firebaseapp.com",
+            databaseURL: "https://love-1-6cdb1-default-rtdb.firebaseio.com",
+            projectId: "love-1-6cdb1",
+            storageBucket: "love-1-6cdb1.firebasestorage.app",
+            messagingSenderId: "949848083048",
+            appId: "1:949848083048:web:ced52526264da1dcf4c9dd"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        // 1. Save Header
+        function saveHeader() {
+            const name = document.getElementById('header-name').value;
+            db.ref('settings/home/title').set(name).then(() => alert("Header Saved!"));
+        }
+
+        // 2. Add Button
+        function addButton() {
+            const name = document.getElementById('btn-name').value;
+            const img = document.getElementById('btn-img').value;
+            const caption = document.getElementById('btn-caption').value;
+            const time = document.getElementById('btn-time').value;
+
+            if(!name || !time) { alert("Name and Time are required!"); return; }
+
+            const newBtnRef = db.ref('home_buttons').push();
+            newBtnRef.set({
+                name: name,
+                image: img,
+                caption: caption,
+                duration: parseInt(time),
+                clicked: false // Initially not clicked
+            }).then(() => {
+                alert("Button Created Successfully!");
+                // Clear inputs
+                document.getElementById('btn-name').value = "";
+                document.getElementById('btn-caption').value = "";
+                document.getElementById('btn-time').value = "";
+            });
+        }
+
+        // 3. Load Active Buttons
+        db.ref('home_buttons').on('value', (snapshot) => {
+            const list = document.getElementById('button-list');
+            list.innerHTML = "";
+            snapshot.forEach((child) => {
+                const data = child.val();
+                const item = document.createElement('div');
+                item.className = "list-item";
+                item.innerHTML = `
+                    <span><b>${data.name}</b> (${data.duration}s)</span>
+       

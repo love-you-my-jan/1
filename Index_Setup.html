@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Setup - Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: #ecf0f3;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 500px;
+            background: #ecf0f3;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 10px 10px 20px #cbced1, -10px -10px 20px #ffffff;
+            text-align: center;
+        }
+        h2 { color: #1da1f2; margin-bottom: 20px; }
+        .input-group { margin-bottom: 20px; text-align: left; }
+        label { font-weight: 600; color: #555; display: block; margin-bottom: 5px; }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            outline: none;
+            background: #ecf0f3;
+            border-radius: 50px;
+            box-shadow: inset 5px 5px 10px #cbced1, inset -5px -5px 10px #ffffff;
+            font-size: 16px;
+            color: #333;
+            box-sizing: border-box; /* Fix padding issue */
+        }
+
+        /* Image Preview */
+        .preview-box {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 10px auto;
+            background: #ecf0f3;
+            box-shadow: 5px 5px 10px #cbced1, -5px -5px 10px #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 3px solid #1da1f2;
+        }
+        .preview-box img { width: 100%; height: 100%; object-fit: cover; }
+
+        .btn-save {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 50px;
+            background: #1da1f2;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 5px 5px 10px #cbced1, -5px -5px 10px #ffffff;
+            transition: 0.3s;
+        }
+        .btn-save:hover { background: #0d8bd1; }
+        
+        .btn-back {
+            margin-top: 15px;
+            background: transparent;
+            border: none;
+            color: #555;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-back:hover { text-decoration: underline; }
+
+        .status { margin-top: 10px; font-size: 14px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2><i class="fas fa-edit"></i> Index Screen Setup</h2>
+        
+        <!-- Preview -->
+        <div class="preview-box">
+            <img id="preview-img" src="https://via.placeholder.com/100" alt="Logo">
+        </div>
+
+        <div class="input-group">
+            <label>App Name</label>
+            <input type="text" id="app-name" placeholder="Enter App Name (e.g. My Love App)">
+        </div>
+
+        <div class="input-group">
+            <label>Logo URL (Direct Link)</label>
+            <input type="text" id="logo-url" placeholder="https://example.com/logo.png" oninput="updatePreview()">
+        </div>
+
+        <button class="btn-save" onclick="saveData()">SAVE SETTINGS</button>
+        <button class="btn-back" onclick="window.location.href='admin.home.html'">Back to Dashboard</button>
+        <p class="status" id="status-msg"></p>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCXMFqxIe8IrZkzUx2YVMTvVXQmIAhtruc",
+            authDomain: "love-1-6cdb1.firebaseapp.com",
+            databaseURL: "https://love-1-6cdb1-default-rtdb.firebaseio.com",
+            projectId: "love-1-6cdb1",
+            storageBucket: "love-1-6cdb1.firebasestorage.app",
+            messagingSenderId: "949848083048",
+            appId: "1:949848083048:web:ced52526264da1dcf4c9dd"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        // Load current data
+        window.onload = function() {
+            db.ref('settings/index').once('value', (snapshot) => {
+                const data = snapshot.val();
+                if(data) {
+                    document.getElementById('app-name').value = data.appName || "";
+                    document.getElementById('logo-url').value = data.logoUrl || "";
+                    document.getElementById('preview-img').src = data.logoUrl || "https://via.placeholder.com/100";
+                }
+            });
+        };
+
+        // Update Preview Image instantly
+        function updatePreview() {
+            const url = document.getElementById('logo-url').value;
+            if(url) {
+                document.getElementById('preview-img').src = url;
+            }
+        }
+
+        // Save Data to Firebase
+        function saveData() {
+            const name = document.getElementById('app-name').value;
+            const logo = document.getElementById('logo-url').value;
+            const status = document.getElementById('status-msg');
+
+            if(name === "" || logo === "") {
+                status.style.color = "red";
+                status.innerText = "Please fill all fields!";
+                return;
+            }
+
+            db.ref('settings/index').set({
+                appName: name,
+                logoUrl: logo
+            }).then(() => {
+                status.style.color = "green";
+                status.innerText = "Saved Successfully!";
+            }).catch((error) => {
+                status.style.color = "red";
+                status.innerText = "Error Saving Data!";
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ecf0f3; /* Neumorphism base color */
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Header Area */
+        .header {
+            width: 100%;
+            padding: 25px 0;
+            text-align: center;
+            background: #ecf0f3;
+            box-shadow: 5px 5px 10px #cbced1, -5px -5px 10px #ffffff;
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header h1 {
+            color: #1da1f2;
+            font-size: 26px;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header p {
+            color: #555;
+            font-size: 14px;
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
+
+        /* Grid Container for Buttons */
+        .container {
+            width: 90%;
+            max-width: 800px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 25px;
+            padding-bottom: 40px;
+        }
+
+        /* Premium Button Style (Neumorphism) */
+        .dashboard-btn {
+            background: #ecf0f3;
+            border: none;
+            border-radius: 20px;
+            padding: 25px 15px;
+            text-align: center;
+            box-shadow: 8px 8px 16px #cbced1, -8px -8px 16px #ffffff;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hover Effect */
+        .dashboard-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 12px 12px 20px #cbced1, -12px -12px 20px #ffffff;
+        }
+
+        /* Active/Click Effect */
+        .dashboard-btn:active {
+            box-shadow: inset 5px 5px 10px #cbced1, inset -5px -5px 10px #ffffff;
+            transform: translateY(2px);
+        }
+
+        /* Icons Styling */
+        .dashboard-btn i {
+            font-size: 32px;
+            margin-bottom: 15px;
+            background: -webkit-linear-gradient(45deg, #0984e3, #74b9ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: transform 0.3s;
+        }
+
+        .dashboard-btn:hover i {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .dashboard-btn span {
+            font-weight: 600;
+            font-size: 15px;
+            color: #444;
+        }
+
+        /* Logout Button */
+        .btn-logout {
+            margin-top: 20px;
+            width: 180px;
+            background: #ecf0f3;
+            color: #e17055;
+            padding: 15px;
+            border-radius: 50px;
+            border: none;
+            box-shadow: 5px 5px 10px #cbced1, -5px -5px 10px #ffffff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .btn-logout:hover {
+            color: red;
+            box-shadow: inset 5px 5px 10px #cbced1, inset -5px -5px 10px #ffffff;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="header">
+        <h1><i class="fas fa-user-shield"></i> Admin Panel</h1>
+        <p>Logged in as: <b>RAFSAN20</b></p>
+    </div>
+
+    <!-- Dashboard Buttons Container -->
+    <div class="container">
+        
+        <!-- Login Setup -->
+        <button class="dashboard-btn" onclick="window.location.href='Login_Setup.html'">
+            <i class="fas fa-sign-in-alt"></i>
+            <span>Login Setup</span>
+        </button>
+
+        <!-- Home Setup -->
+        <button class="dashboard-btn" onclick="window.location.href='Home_Setup.html'">
+            <i class="fas fa-home"></i>
+            <span>Home Setup</span>
+        </button>
+
+        <!-- Index Setup -->
+        <button class="dashboard-btn" onclick="window.location.href='Index_Setup.html'">
+            <i class="fas fa-layer-group"></i>
+            <span>Index Setup</span>
+        </button>
+
+        <!-- Time Setup -->
+        <button class="dashboard-btn" onclick="window.location.href='Time_Setup.html'">
+            <i class="fas fa-clock"></i>
+            <span>Time Setup</span>
+        </button>
+
+        <!-- Love Setup -->
+        <button class="dashboard-btn" onclick="window.location.href='Love_Setup.html'">
+            <i class="fas fa-heart"></i>
+            <span>Love Setup</span>
+        </button>
+
+    </div>
+
+    <!-- Logout Button -->
+    <button class="btn-logout" onclick="logout()">
+        <i class="fas fa-power-off"></i> LOGOUT
+    </button>
+
+    <!-- Firebase SDK (For future connectivity) -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+
+    <script>
+         // Firebase Config
+         const firebaseConfig = {
+            apiKey: "AIzaSyCXMFqxIe8IrZkzUx2YVMTvVXQmIAhtruc",
+            authDomain: "love-1-6cdb1.firebaseapp.com",
+            databaseURL: "https://love-1-6cdb1-default-rtdb.firebaseio.com",
+            projectId: "love-1-6cdb1",
+            storageBucket: "love-1-6cdb1.firebasestorage.app",
+            messagingSenderId: "949848083048",
+            appId: "1:949848083048:web:ced52526264da1dcf4c9dd"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        // Logout Function
+        function logout() {
+            if(confirm("Are you sure you want to logout?")) {
+                // Redirect back to login page
+                window.location.href = "index.html";
+            }
+        }
+    </script>
+</body>
+</html>

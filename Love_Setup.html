@@ -79,6 +79,13 @@
             <textarea id="page-caption" rows="2" placeholder="Ex: Blow the candles to make a wish..."></textarea>
         </div>
 
+        <!-- NEW: Timer Setup -->
+        <div class="input-group" style="border: 2px dashed #ff4d6d; padding: 10px; border-radius: 10px;">
+            <label style="color: #ff4d6d;">Auto Extinguish Timer (Seconds)</label>
+            <input type="number" id="auto-timer" placeholder="Ex: 15 (Candles off automatically after 15s)">
+            <small style="color: #777;">Leave empty if you want only Microphone Blow.</small>
+        </div>
+
         <h3>Set 7 Memories (Logos)</h3>
         <div class="memories-grid" id="memories-container">
             <!-- JavaScript will generate 7 inputs here -->
@@ -123,6 +130,7 @@
             if(data) {
                 document.getElementById('page-title').value = data.title || "";
                 document.getElementById('page-caption').value = data.caption || "";
+                document.getElementById('auto-timer').value = data.timer || ""; // Load Timer
                 
                 if(data.memories) {
                     data.memories.forEach((mem, index) => {
@@ -137,6 +145,7 @@
         function saveData() {
             const title = document.getElementById('page-title').value;
             const caption = document.getElementById('page-caption').value;
+            const timer = document.getElementById('auto-timer').value;
             
             let memories = [];
             for(let i=1; i<=7; i++) {
@@ -149,6 +158,7 @@
             db.ref('settings/love_page').set({
                 title: title,
                 caption: caption,
+                timer: timer, // Save Timer
                 memories: memories
             }).then(() => alert("Saved Successfully!"));
         }
